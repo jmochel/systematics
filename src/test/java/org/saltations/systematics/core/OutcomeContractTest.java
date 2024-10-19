@@ -8,15 +8,15 @@ import org.junit.jupiter.api.TestMethodOrder;
 import org.saltations.systematics.test.fixture.ReplaceBDDCamelCase;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.saltations.systematics.core.Try.attempt;
+import static org.saltations.systematics.core.Outcome.attempt;
 
 /**
- * Confirms the basic contract of the {@link Try} class.
+ * Confirms the basic contract of the {@link Outcome} class.
  * <p>
  * The basic contract looks like this:
  * <dl>
  *     <dt>Success</dt>
- *     <dd>When an operation is successful, the {@link Try} instance should have the following behaviors</dd>
+ *     <dd>When an operation is successful, the {@link Outcome} instance should have the following behaviors</dd>
  *      <ol>
  *          <li>{@code isSuccess()} is true</li>
  *          <li>{@code isFailure()} is false</li>
@@ -24,7 +24,7 @@ import static org.saltations.systematics.core.Try.attempt;
  *      </ol>
  *     </dd>
  *     <dt>Failure</dt>
- *     <dd>When an operation is a failure, the {@link Try} instance should have the following behaviors</dd>
+ *     <dd>When an operation is a failure, the {@link Outcome} instance should have the following behaviors</dd>
  *      <ol>
  *          <li>{@code isSuccess()} is false</li>
  *          <li>{@code isFailure()} is true</li>
@@ -37,7 +37,7 @@ import static org.saltations.systematics.core.Try.attempt;
 
 @DisplayNameGeneration(ReplaceBDDCamelCase.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-class TryContractTest
+class OutcomeContractTest
 {
     @Test
     @Order(1)
@@ -67,7 +67,7 @@ class TryContractTest
     @Order(10)
     void givenSuccessfulOperation_whenMap_thenTransformsValue() {
         var attempt = attempt(() -> Integer.parseInt("123"));
-        Try<String> transformed = attempt.map(Object::toString);
+        Outcome<String> transformed = attempt.map(Object::toString);
         assertTrue(transformed.isSuccess());
         assertEquals("123", transformed.get());
     }

@@ -11,7 +11,7 @@ import lombok.NonNull;
  * @param <SV> The type of the success value.
  */
 
-public record Success<SV>(@NonNull SV value) implements Try<SV>
+public record Success<SV>(@NonNull SV value) implements Outcome<SV>
 {
     public static final Success<Boolean> SUCCESS = new Success<>(true);
 
@@ -40,13 +40,13 @@ public record Success<SV>(@NonNull SV value) implements Try<SV>
     }
 
     @Override
-    public <NV> Try<NV> map(Function<SV, NV> mapFxn)
+    public <NV> Outcome<NV> map(Function<SV, NV> mapFxn)
     {
         return new Success<>(mapFxn.apply(value));
     }
 
     @Override
-    public <NV> Try<NV> flatMap(Function<SV, Try<NV>> flatMapFxn)
+    public <NV> Outcome<NV> flatMap(Function<SV, Outcome<NV>> flatMapFxn)
     {
         return flatMapFxn.apply(value);
     }

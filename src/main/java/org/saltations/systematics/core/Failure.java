@@ -12,7 +12,7 @@ import java.util.function.Function;
  * @param <SV> The type of the success value.
  */
 
-public record Failure<SV>(FailureType type, String title, String detail, Exception cause) implements Try<SV>
+public record Failure<SV>(FailureType type, String title, String detail, Exception cause) implements Outcome<SV>
 {
     public Failure(Exception cause)
     {
@@ -44,15 +44,15 @@ public record Failure<SV>(FailureType type, String title, String detail, Excepti
     }
 
     @Override
-    public <NV> Try<NV> map(Function<SV, NV> mapFxn)
+    public <NV> Outcome<NV> map(Function<SV, NV> mapFxn)
     {
-        return (Try<NV>) this;
+        return (Outcome<NV>) this;
     }
 
     @Override
-    public <NV> Try<NV> flatMap(Function<SV, Try<NV>> flatMapFxn)
+    public <NV> Outcome<NV> flatMap(Function<SV, Outcome<NV>> flatMapFxn)
     {
-        return (Try<NV>) this;
+        return (Outcome<NV>) this;
     }
 
 
